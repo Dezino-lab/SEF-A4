@@ -9,12 +9,20 @@ public class Driver {
     private String birthdate;
 
     public Driver(String driverID, String name, int experienceYears, String licenseType, String address, String birthdate) {
+        if (!isValidDriverIDLength(driverID)) {
+            throw new IllegalArgumentException("Bus ID must be exactly 10 digits.");
+        }
+        
         this.driverID = driverID;
         this.name = name;
         this.experienceYears = experienceYears;
         this.licenseType = licenseType;
         this.address = address;
         this.birthdate = birthdate;
+    }
+
+    public static boolean isValidDriverIDLength(String driverID) {
+        return driverID != null && driverID.matches("\\d{8}");
     }
 
     public String getDriverID() {
@@ -42,6 +50,9 @@ public class Driver {
     }
 
     public void setDriverID(String driverID) {
+        if (!isValidDriverIDLength(driverID)) {
+            throw new IllegalArgumentException("Bus ID must be exactly 10 digits.");
+        }
         this.driverID = driverID;
     }
 
