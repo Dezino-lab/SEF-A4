@@ -44,6 +44,12 @@ public class Driver {
         return birthdate;
     }
 
+    public int getDriverAge() {
+        int birthYear = Integer.parseInt(this.birthdate.substring(6, 10));
+        int Age = 2026 - birthYear;
+        return Age;
+    }
+
     public void setDriverID(String driverID) {
         this.driverID = driverID;
     }

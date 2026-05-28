@@ -48,4 +48,54 @@ public class BusTest {
         assertFalse(result);
         assertEquals(40, bus.getCapacity());
     }
+
+    @Test
+    public void driverAgeIs45CapIs60ShouldBeAccepted() {
+        
+
+    }
+
+    @Test
+    public void driverAgeOver50CapOver50ShouldBeRejected() {
+        
+    }
+
+    @Test
+    public void driverAgeIs50CapIs50ShouldBeAccepted() {
+
+    }
+
+    @Test 
+    public void electricBusOver5YearsXPShouldBeAccepted() {
+        
+    }
+
+    @Test 
+    public void electricBus2yearsXPShouldBeRejected() {
+        
+    }
+
+    @Test 
+    public void electricBusMinYearsXPShouldBeAccepted() {
+        
+    }
+
+    @Test
+    public void canDriveElectricBusShouldBeAccepted() {
+        
+    }
+
+    @Test
+    public void canDriveHybridBusShouldBeAccepted() {
+        
+    }
+    @Test
+    public void canDriveHybridBusShouldBeRejected() {
+        
+    }
+
+    @Test
+    public void canDriveElectricBusShouldBeRejected() {
+        
+    }
 }
