@@ -50,21 +50,52 @@ public class BusTest {
     }
 
     @Test
-    public void driverAgeRestriction() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Driver("1234567891", "Driver", 10, "Public Transport", "123 Bus Road, Vehicles North, VIC 8980", "11/03/1950");
-        });
+    public void driverAgeIs45CapIs60ShouldBeAccepted() {
+        
 
     }
 
     @Test
-    public void driverAgeOver50() {
+    public void driverAgeOver50CapOver50ShouldBeRejected() {
         
     }
 
     @Test
-    public void driverAgeRestrictionEdge() {
+    public void driverAgeIs50CapIs50ShouldBeAccepted() {
 
     }
 
+    @Test 
+    public void electricBusOver5YearsXPShouldBeAccepted() {
+        
+    }
+
+    @Test 
+    public void electricBus2yearsXPShouldBeRejected() {
+        
+    }
+
+    @Test 
+    public void electricBusMinYearsXPShouldBeAccepted() {
+        
+    }
+
+    @Test
+    public void canDriveElectricBusShouldBeAccepted() {
+        
+    }
+
+    @Test
+    public void canDriveHybridBusShouldBeAccepted() {
+        
+    }
+    @Test
+    public void canDriveHybridBusShouldBeRejected() {
+        
+    }
+
+    @Test
+    public void canDriveElectricBusShouldBeRejected() {
+        
+    }
 }
