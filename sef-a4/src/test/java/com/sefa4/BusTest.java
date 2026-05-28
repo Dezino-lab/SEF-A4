@@ -48,4 +48,23 @@ public class BusTest {
         assertFalse(result);
         assertEquals(40, bus.getCapacity());
     }
+
+    @Test
+    public void driverAgeRestriction() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Driver("1234567891", "Driver", 10, "Public Transport", "123 Bus Road, Vehicles North, VIC 8980", "11/03/1950");
+        });
+
+    }
+
+    @Test
+    public void driverAgeOver50() {
+        
+    }
+
+    @Test
+    public void driverAgeRestrictionEdge() {
+
+    }
+
 }
