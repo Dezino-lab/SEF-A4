@@ -10,13 +10,9 @@ jobs:
             - name: Setup java
               uses: actions/setup-java@v4
               with:
-                distribution: 'adopt'
-                java-version: '21'
+                distribution: 'temurin'
+                java-version: '17'
             - name: Run tests
+              working-directory: ./sef-a4
               run: mvn test
     
-    another-job:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Check out repository ocode
-              run: ls -la
