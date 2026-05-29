@@ -18,6 +18,7 @@ public class Bus {
         this.fuelType = fuelType;
     }
     
+    //method for checking if driver can be assigned to the bus 
     public boolean canAssignDriver(Driver driver) {
         int driverAge = driver.getDriverAge();
         int driverExp = driver.getExperience();
@@ -29,12 +30,12 @@ public class Bus {
         }
 
         //only drivers with at least 5 years of experience can drive electric buses 
-        if ("Electricity".equalsIgnoreCase(this.fuelType) && driverExp < 5) {
+        if ("Electric".equalsIgnoreCase(this.fuelType) && driverExp < 5) {
             return false;
         }
 
         //only drivders with Heavy or PublicTransport license can drive electric or hybrid buses
-        if ("Electricity".equalsIgnoreCase(this.fuelType) || "Hybrid".equalsIgnoreCase(this.fuelType)) {
+        if ("Electric".equalsIgnoreCase(this.fuelType) || "Hybrid".equalsIgnoreCase(this.fuelType)) {
             boolean hasValidLicense = "Heavy".equalsIgnoreCase(licenceType) || "PublicTransport".equalsIgnoreCase(licenceType);
             if (!hasValidLicense) {
                 return false;
