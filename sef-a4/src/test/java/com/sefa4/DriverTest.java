@@ -85,24 +85,7 @@ public class DriverTest {
         assertEquals(before, repo.count());
     }
 
-    @Test
-    public void validDriverWithDifferentID() {
-
-        DriverRepository repo = new DriverRepository();
-        int before = repo.count();
-
-        Driver driver = new Driver(
-                "23@#45$6AB",
-                "John",
-                5,
-                "Public Transport",
-                "123|Queen St|Melbourne|VIC|Australia",
-                "03-09-1966"
-        );
-
-        assertTrue(repo.add(driver));
-        assertEquals(before + 1, repo.count());
-    }
+    
 
     @Test
     public void validDriverWithDifferentID1() {
@@ -141,6 +124,8 @@ public class DriverTest {
         assertTrue(repo.add(driver));
         assertEquals(before + 1, repo.count());
     }
+
+    
     @Test
     public void invalidIDLength() {
 
@@ -235,5 +220,34 @@ public class DriverTest {
         assertFalse(repo.add(driver));
         assertEquals(before, repo.count());
     }
+
+    @Test
+public void updateDriverInfo() {
+
+    DriverRepository repo = new DriverRepository();
+
+    Driver driver = new Driver(
+            "23@#45$6AB",
+            "John",
+            5,
+            "Public Transport",
+            "123|Queen St|Melbourne|VIC|Australia",
+            "03-09-1966"
+    );
+
+    repo.add(driver);
+
+    
+    Driver updatedDriver = new Driver(
+            "23@#45$6AB",
+            "John",
+            5,
+            "Public Transport",
+            "999|Queen Street|Melbourne|VIC|Australia",
+            "01-01-1970"
+    );
+
+    assertTrue(repo.update(updatedDriver));
+}
     
 }

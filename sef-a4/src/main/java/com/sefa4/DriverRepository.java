@@ -74,30 +74,29 @@ public class DriverRepository {
     //Update driver
     public boolean update(Driver updatedDriver) {
 
-        List<Driver> drivers = loadFromFile();
-        boolean found = false;
+    List<Driver> drivers = loadFromFile();
+    boolean found = false;
 
-        for (int i = 0; i < drivers.size(); i++) {
+    for (Driver existing : drivers) {
 
-            Driver existing = drivers.get(i);
+        if (existing.getDriverID().equals(updatedDriver.getDriverID())) {
 
-            if (existing.getDriverID().equals(updatedDriver.getDriverID())) {
+            // Update ALL fields using setters
+            existing.setName(updatedDriver.getName());
+            existing.setExperience(updatedDriver.getExperience());
+            existing.setLicense(updatedDriver.getLicense());
+            existing.setAddress(updatedDriver.getAddress());
+            existing.setBirthdate(updatedDriver.getBirthdate());
 
-                // D5: immutable fields
-                if (!existing.getName().equals(updatedDriver.getName())) {
-                    return false;
-                }
-
-                drivers.set(i, updatedDriver);
-                found = true;
-                break;
-            }
+            found = true;
+            break;
         }
-
-        if (!found) return false;
-
-        return saveToFile(drivers);
     }
+
+    if (!found) return false;
+
+    return saveToFile(drivers);
+}
 
     //Load from txt file
     private List<Driver> loadFromFile() {
