@@ -88,6 +88,12 @@ public class DriverRepository {
                     return false;
                 }
 
+                if (!existing.getLicense().equals(updatedDriver.getLicense())) {
+                    if ((existing.getExperience() > 10) || (updatedDriver.getExperience() > 10)) {
+                        return false;
+                    }
+                }
+
                 drivers.set(i, updatedDriver);
                 found = true;
                 break;
