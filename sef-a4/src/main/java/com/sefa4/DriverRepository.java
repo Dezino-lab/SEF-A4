@@ -88,8 +88,26 @@ public class DriverRepository {
             existing.setAddress(updatedDriver.getAddress());
             existing.setBirthdate(updatedDriver.getBirthdate());
 
+<<<<<<< HEAD
             found = true;
             break;
+=======
+                // D5: immutable fields
+                if (!existing.getName().equals(updatedDriver.getName())) {
+                    return false;
+                }
+
+                if (!existing.getLicense().equals(updatedDriver.getLicense())) {
+                    if ((existing.getExperience() > 10) || (updatedDriver.getExperience() > 10)) {
+                        return false;
+                    }
+                }
+
+                drivers.set(i, updatedDriver);
+                found = true;
+                break;
+            }
+>>>>>>> 89e78300ff0a14bbe80467b9859c0d3f96d66c5e
         }
     }
 

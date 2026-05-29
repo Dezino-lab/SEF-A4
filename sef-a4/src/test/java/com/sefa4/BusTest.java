@@ -51,51 +51,80 @@ public class BusTest {
 
     @Test
     public void driverAgeIs45CapIs60ShouldBeAccepted() {
-        
+        Bus bus = new Bus("12345678", 60, 100.0, "Diesel");
+        Driver driver = new Driver("D0000001", "John", 10, "PublicTransport", "123 St", "01-01-1981");
 
+        assertTrue(bus.canAssignDriver(driver));
     }
 
     @Test
     public void driverAgeOver50CapOver50ShouldBeRejected() {
-        
+        Bus bus = new Bus("12345678", 60, 100.0, "Diesel");
+        Driver driver = new Driver("D0000001", "John", 10, "PublicTransport", "123 St", "01-01-1971");
+
+        assertFalse(bus.canAssignDriver(driver));
     }
 
     @Test
     public void driverAgeIs50CapIs50ShouldBeAccepted() {
+        Bus bus = new Bus("12345678", 50, 100.0, "Diesel");
+        Driver driver = new Driver("D0000001", "John", 10, "PublicTransport", "123 St", "01-01-1976");
 
+        assertTrue(bus.canAssignDriver(driver));
     }
 
     @Test 
     public void electricBusOver5YearsXPShouldBeAccepted() {
+        Bus bus = new Bus("12345678", 50, 100.0, "Electric");
+        Driver driver = new Driver("D0000001", "John", 7, "PublicTransport", "123 St", "01-01-1990");
         
+        assertTrue(bus.canAssignDriver(driver));
     }
 
     @Test 
     public void electricBus2yearsXPShouldBeRejected() {
+        Bus bus = new Bus("12345678", 50, 100.0, "Electric");
+        Driver driver = new Driver("D0000001", "John", 2, "PublicTransport", "123 St", "01-01-1990");
         
+        assertFalse(bus.canAssignDriver(driver));
     }
 
     @Test 
     public void electricBusMinYearsXPShouldBeAccepted() {
+        Bus bus = new Bus("12345678", 50, 100.0, "Electric");
+        Driver driver = new Driver("D0000001", "John", 5, "PublicTransport", "123 St", "01-01-1990");
         
+        assertTrue(bus.canAssignDriver(driver));
     }
 
     @Test
     public void canDriveElectricBusShouldBeAccepted() {
-        
+        Bus bus = new Bus("12345678", 50, 100.0, "Electric");
+        Driver driver = new Driver("D0000001", "John", 5, "PublicTransport", "123 St", "01-01-1990");
+        assertTrue(bus.canAssignDriver(driver));
     }
 
     @Test
     public void canDriveHybridBusShouldBeAccepted() {
-        
+        Bus bus = new Bus("12345678", 50, 100.0, "Hybrid");
+        Driver driver = new Driver("D0000001", "John", 5, "Heavy", "123 St", "01-01-1990");
+        assertTrue(bus.canAssignDriver(driver));
     }
+    
     @Test
     public void canDriveHybridBusShouldBeRejected() {
-        
+        Bus bus = new Bus("12345678", 50, 100.0, "Hybrid");
+        Driver driver = new Driver("D0000001", "John", 5, "Standard", "123 St", "01-01-1990");
+        assertFalse(bus.canAssignDriver(driver));
     }
+
+    
 
     @Test
     public void canDriveElectricBusShouldBeRejected() {
-        
+        Bus bus = new Bus("12345678", 50, 100.0, "Electric");
+        Driver driver = new Driver("D0000001", "John", 2, "Standard", "123 St", "01-01-1990");
+        assertFalse(bus.canAssignDriver(driver));
     }
 }
+

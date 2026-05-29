@@ -17,6 +17,34 @@ public class Bus {
         this.fuelLevel = fuelLevel;
         this.fuelType = fuelType;
     }
+    
+    //method for checking if driver can be assigned to the bus 
+    public boolean canAssignDriver(Driver driver) {
+        int driverAge = driver.getDriverAge();
+        int driverExp = driver.getExperience();
+        String licenceType = driver.getLicense();
+
+        // drivers older than 50 cannot drive buses with capacity of 50 or more
+        if (this.capacity >= 50 && driverAge > 50) {
+            return false;
+        }
+
+        //only drivers with at least 5 years of experience can drive electric buses 
+        if ("Electric".equalsIgnoreCase(this.fuelType) && driverExp < 5) {
+            return false;
+        }
+
+        //only drivders with Heavy or PublicTransport license can drive electric or hybrid buses
+        if ("Electric".equalsIgnoreCase(this.fuelType) || "Hybrid".equalsIgnoreCase(this.fuelType)) {
+            boolean hasValidLicense = "Heavy".equalsIgnoreCase(licenceType) || "PublicTransport".equalsIgnoreCase(licenceType);
+            if (!hasValidLicense) {
+                return false;
+            }
+        }
+
+
+        return true;
+    }
 
     public static boolean isValidBusID(String busID) {
         return busID != null && busID.matches("\\d{8}");
