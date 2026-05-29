@@ -99,20 +99,32 @@ public class BusTest {
 
     @Test
     public void canDriveElectricBusShouldBeAccepted() {
-        
+        Bus bus = new Bus("12345678", 50, 100.0, "Electric");
+        Driver driver = new Driver("D0000001", "John", 5, "PublicTransport", "123 St", "01-01-1990");
+        assertTrue(bus.canAssignDriver(driver));
     }
 
     @Test
     public void canDriveHybridBusShouldBeAccepted() {
-        
+        Bus bus = new Bus("12345678", 50, 100.0, "Hybrid");
+        Driver driver = new Driver("D0000001", "John", 5, "Heavy", "123 St", "01-01-1990");
+        assertTrue(bus.canAssignDriver(driver));
     }
+    
     @Test
     public void canDriveHybridBusShouldBeRejected() {
-        
+        Bus bus = new Bus("12345678", 50, 100.0, "Hybrid");
+        Driver driver = new Driver("D0000001", "John", 5, "Standard", "123 St", "01-01-1990");
+        assertFalse(bus.canAssignDriver(driver));
     }
+
+    
 
     @Test
     public void canDriveElectricBusShouldBeRejected() {
-        
+        Bus bus = new Bus("12345678", 50, 100.0, "Electric");
+        Driver driver = new Driver("D0000001", "John", 2, "Standard", "123 St", "01-01-1990");
+        assertFalse(bus.canAssignDriver(driver));
     }
 }
+
