@@ -388,7 +388,7 @@ public class DriverTest {
     }
 
     @Test
-    public void validAddressUpdate() {
+    public void validUpdate() {
 
         DriverRepository repo = new DriverRepository();
         int before = repo.count();
@@ -414,6 +414,72 @@ public class DriverTest {
                 "Public Transport",
                 "24|Myers St|Geelong|VIC|Australia",
                 "17-08-1973"
+        );
+
+        assertTrue(repo.update(uDriver));
+        assertEquals(before, repo.count());
+    }
+
+    @Test
+    public void invalidUpdateDriverID() {
+
+        DriverRepository repo = new DriverRepository();
+        int before = repo.count();
+
+        Driver driver = new Driver(
+                "55&376*4BW",
+                "Brian",
+                8,
+                "Public Transport",
+                "55|Heather Cct|Melbourne|VIC|Australia",
+                "04-04-1962"
+        );
+
+        assertTrue(repo.add(driver));
+        assertEquals(before + 1, repo.count());
+        
+        before = repo.count();
+
+        Driver uDriver = new Driver(
+                "98&%76#5ZY",
+                "Brian",
+                8,
+                "Public Transport",
+                "55|Heather Cct|Melbourne|VIC|Australia",
+                "04-04-1962"
+        );
+
+        assertFalse(repo.update(uDriver));
+        assertEquals(before, repo.count());
+    }
+
+    @Test
+    public void invalidUpdateName() {
+
+        DriverRepository repo = new DriverRepository();
+        int before = repo.count();
+
+        Driver driver = new Driver(
+                "939876#@GF",
+                "Shaun",
+                2,
+                "Public Transport",
+                "12|Drawer Ct|Melbourne|VIC|Australia",
+                "12-12-1980"
+        );
+
+        assertTrue(repo.add(driver));
+        assertEquals(before + 1, repo.count());
+        
+        before = repo.count();
+
+        Driver uDriver = new Driver(
+                "939876#@GF",
+                "David",
+                2,
+                "Public Transport",
+                "12|Drawer Ct|Melbourne|VIC|Australia",
+                "12-12-1980"
         );
 
         assertFalse(repo.update(uDriver));
