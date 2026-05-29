@@ -72,42 +72,39 @@ public class DriverRepository {
     }
 
     //Update driver
-    public boolean update(Driver updatedDriver) {
+    // Update driver
+public boolean update(Driver updatedDriver) {
 
     List<Driver> drivers = loadFromFile();
     boolean found = false;
 
-    for (Driver existing : drivers) {
+    for (int i = 0; i < drivers.size(); i++) {
+
+        Driver existing = drivers.get(i);
 
         if (existing.getDriverID().equals(updatedDriver.getDriverID())) {
 
-            // Update ALL fields using setters
-            existing.setName(updatedDriver.getName());
+            // D5: Name should NOT change
+            if (!existing.getName().equals(updatedDriver.getName())) {
+                return false;
+            }
+
+            // D5: License rule with experience
+            if (!existing.getLicense().equals(updatedDriver.getLicense())) {
+                if (existing.getExperience() > 10 || updatedDriver.getExperience() > 10) {
+                    return false;
+                }
+            }
+
+            // Update allowed fields
             existing.setExperience(updatedDriver.getExperience());
             existing.setLicense(updatedDriver.getLicense());
             existing.setAddress(updatedDriver.getAddress());
             existing.setBirthdate(updatedDriver.getBirthdate());
 
-<<<<<<< HEAD
+            drivers.set(i, existing);
             found = true;
             break;
-=======
-                // D5: immutable fields
-                if (!existing.getName().equals(updatedDriver.getName())) {
-                    return false;
-                }
-
-                if (!existing.getLicense().equals(updatedDriver.getLicense())) {
-                    if ((existing.getExperience() > 10) || (updatedDriver.getExperience() > 10)) {
-                        return false;
-                    }
-                }
-
-                drivers.set(i, updatedDriver);
-                found = true;
-                break;
-            }
->>>>>>> 89e78300ff0a14bbe80467b9859c0d3f96d66c5e
         }
     }
 
@@ -222,7 +219,7 @@ public class DriverRepository {
         //The birthdate must follow the format: DD-MM-YYYY 
         return birthdate.matches("\\d{2}-\\d{2}-\\d{4}");
     }
+
+
 }
-
-
 
