@@ -59,8 +59,7 @@ public class BusRepository {
         }
 
         buses.add(bus);
-        saveToFile(buses);
-        return true;
+        return saveToFile(buses);
     
     }
 
@@ -92,8 +91,7 @@ public class BusRepository {
                 existingBus.setFuelType(updatedBus.getFuelType());
 
                 buses.set(i, existingBus);
-                saveToFile(buses);  
-                return true;
+                return saveToFile(buses);
             }
         }
         return false;
