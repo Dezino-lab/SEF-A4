@@ -1,0 +1,71 @@
+package com.sefa4;
+
+import java.io.File;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class BusRepositoryIntegrationTest {
+    
+    private static final String TEST_FILE_NAME = "target" + File.separator + "test-bus-repository.txt";
+    private BusRepository repo;
+
+    @BeforeEach
+    public void setUp() {
+        File file = new File(TEST_FILE_NAME);
+
+        if (file.exists()) {
+            file.delete();
+        }
+
+        repo = new BusRepository(TEST_FILE_NAME);
+    }
+
+    @AfterEach
+    public void cleanUp() {
+        File file = new File(TEST_FILE_NAME);
+
+        if (file.exists()) {
+            file.delete();
+        }
+    }
+
+    @Test
+    public void validBusShouldBeStoredAndRetrievedFromTxtFile() {
+        Bus bus = new Bus("12345678", 40, 80.0, "Diesel");
+
+        assertTrue(repo.add(bus));
+        assertEquals(1, repo.count());
+
+        List<Bus> storedBuses = repo.retrieve();
+
+        assertEquals(1, storedBuses.size());
+        assertEquals("12345678", storedBuses.get(0).getId());
+        assertEquals(40, storedBuses.get(0).getCapacity());
+        assertEquals(80.0, storedBuses.get(0).getFuelLevel());
+        assertEquals("Diesel", storedBuses.get(0).getFuelType());
+    }
+
+    @Test
+    public void decreasedCapacityUpdateShouldPersistInTxtFile() {
+        Bus originalBus = new Bus("87654321", 60, 80.0, "Diesel");
+        assertTrue(repo.add(originalBus));
+
+        Bus updatedBus = new Bus("87654321", 40, 70.0, "Hybrid");
+        assertTrue(repo.update(updatedBus));
+
+        List<Bus> storedBuses = repo.retrieve();
+
+        assertEquals(1, storedBuses.size());
+        assertEquals(40, storedBuses.get(0).getCapacity());
+        assertEquals(70.0, storedBuses.get(0).getFuelLevel());
+        assertEquals("Hybrid", storedBuses.get(0).getFuelType());
+    }
+
+    // Need 2 more tests
+    //valid storage/retrival and persisted update
+    // invalid or duplicate bus should not be stored and should not affect existing data in file
+}
