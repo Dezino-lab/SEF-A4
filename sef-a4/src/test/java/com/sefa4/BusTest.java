@@ -37,16 +37,27 @@ public class BusTest {
     public void capacityCanDecreaseDuringUpdate() {
         Bus bus = new Bus("12345678", 50, 75.0, "Diesel");
         boolean result = bus.updateCapacity(40);
+
         assertTrue(result);
         assertEquals(40, bus.getCapacity());
     }
 
     @Test
     public void capacityCannotIncreaseDuringUpdate() {
-        Bus bus = new Bus("12345678", 40, 75.0, "Diesel");
-        boolean result = bus.updateCapacity(50);
+        Bus bus = new Bus("12345678", 50, 75.0, "Diesel");
+        boolean result = bus.updateCapacity(60);
+
         assertFalse(result);
-        assertEquals(40, bus.getCapacity());
+        assertEquals(50, bus.getCapacity());
+    }
+
+    @Test
+    public void capacityCanRemainSameDuringUpdate() {
+        Bus bus = new Bus("12345678", 50, 75.0, "Diesel");
+        boolean result = bus.updateCapacity(50);
+
+        assertTrue(result);
+        assertEquals(50, bus.getCapacity());
     }
 
     @Test
