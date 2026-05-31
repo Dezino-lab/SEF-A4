@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BusRepositoryIntegrationTest {
     
+    // Using a separate test file to avoid affecting actual data and to ensure test isolation
     private static final String TEST_FILE_NAME = "target" + File.separator + "test-bus-repository.txt";
     private BusRepository repo;
 
@@ -33,6 +34,7 @@ public class BusRepositoryIntegrationTest {
         }
     }
 
+    // verify that a valid bus can be stored and retrieved from the txt file
     @Test
     public void validBusShouldBeStoredAndRetrievedFromTxtFile() {
         Bus bus = new Bus("12345678", 40, 80.0, "Diesel");
@@ -49,6 +51,7 @@ public class BusRepositoryIntegrationTest {
         assertEquals("Diesel", storedBuses.get(0).getFuelType());
     }
 
+    // verify that an update to a bus's capacity is persisted in the txt file
     @Test
     public void decreasedCapacityUpdateShouldPersistInTxtFile() {
         Bus originalBus = new Bus("87654321", 60, 80.0, "Diesel");

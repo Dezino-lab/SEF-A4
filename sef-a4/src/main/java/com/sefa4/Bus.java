@@ -27,7 +27,7 @@ public class Bus {
         // matching/supports the DriverTest
         String licenceType = driver.getLicense().replace(" ", "");
 
-        // drivers older than 50 cannot drive buses with capacity of 50 or more
+        // B3: drivers older than 50 cannot drive buses with capacity of 50 or more
         if (this.capacity >= 50 && driverAge > 50) {
             return false;
         }
@@ -36,12 +36,12 @@ public class Bus {
 
         boolean isHybrid = "Hybrid".equalsIgnoreCase(this.fuelType);
 
-        //only drivers with at least 5 years of experience can drive electric buses 
+        // B4: only drivers with at least 5 years of experience can drive electric buses 
         if (isElectric && driverExp < 5) {
             return false;
         }
 
-        //only drivders with Heavy or PublicTransport license can drive electric or hybrid buses
+        // B5: only drivers with Heavy or PublicTransport license can drive electric or hybrid buses
         if (isElectric || isHybrid) {
             boolean hasValidLicense = "Heavy".equalsIgnoreCase(licenceType) || "PublicTransport".equalsIgnoreCase(licenceType);
             if (!hasValidLicense) {
@@ -53,6 +53,7 @@ public class Bus {
         return true;
     }
 
+    //B1: Bus ID must be exactly 8 digits
     public static boolean isValidBusID(String busID) {
         return busID != null && busID.matches("\\d{8}");
     }
