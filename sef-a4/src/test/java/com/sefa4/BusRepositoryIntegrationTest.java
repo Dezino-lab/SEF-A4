@@ -72,7 +72,34 @@ public class BusRepositoryIntegrationTest {
     }
 
     // Need 2 more tests
-    //valid storage/retrival and persisted update
+    //Record counts are updated correctly 
+
+    
+
+    @Test
+    public void recordCountsAreUpdatedCorrectly() {
+        // verifies that the repo starts empty
+        assertEquals(0, repo.count());
+
+        // add bus
+        Bus bus1 = new Bus("87654321", 30, 50.0, "Diesel");
+        assertTrue(repo.add(bus1));
+        // verifies there is only 1 bus in the repo
+        assertEquals(1, repo.count());
+
+        // add second bus
+        Bus bus2 = new Bus("37654321", 45, 60.0, "Electric");
+        assertTrue(repo.add(bus2));
+        // verifies there are 2 buses in the repo
+        assertEquals(2, repo.count());
+
+        // add third bus
+        Bus bus3 = new Bus("17654321", 45, 60.0, "Hybrid");
+        assertTrue(repo.add(bus3));
+        // verifies there are 3 buses in the repo
+        assertEquals(3, repo.count());
+        
+    }
 
     // invalid or duplicate bus should not be stored and should not affect existing data in file
     @Test 
