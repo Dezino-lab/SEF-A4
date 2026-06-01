@@ -1,12 +1,15 @@
 package com.sefa4;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.File;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class BusRepositoryIntegrationTest {
     
@@ -70,5 +73,22 @@ public class BusRepositoryIntegrationTest {
 
     // Need 2 more tests
     //valid storage/retrival and persisted update
+
     // invalid or duplicate bus should not be stored and should not affect existing data in file
+    @Test 
+    public void duplicateBusShouldNotBeStoredOrAffectExisting() {
+        // add first bus
+        Bus bus = new Bus("87654321", 30, 90.0, "Electric");
+        assertTrue(repo.add(bus));
+        // verifies there is only 1 bus in the repo 
+        assertEquals(1, repo.count());
+
+        // add a duplicate of first bus
+        Bus duplicateBus = new Bus("87654321", 30, 90.0, "Electric");
+        // verifies that adding the duplicate bus fails
+        assertFalse(repo.add(duplicateBus));
+
+        // Verify that the count remains accurate and didn't change on failure
+        assertEquals(1, repo.count());
+    }
 }
