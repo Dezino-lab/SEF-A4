@@ -22,20 +22,27 @@ public class Bus {
     public boolean canAssignDriver(Driver driver) {
         int driverAge = driver.getDriverAge();
         int driverExp = driver.getExperience();
-        String licenceType = driver.getLicense();
 
-        // drivers older than 50 cannot drive buses with capacity of 50 or more
+        // Remove spaces so that both "PublicTransport" and "Public Transport" are accepted
+        // matching/supports the DriverTest
+        String licenceType = driver.getLicense().replace(" ", "");
+
+        // B3: drivers older than 50 cannot drive buses with capacity of 50 or more
         if (this.capacity >= 50 && driverAge > 50) {
             return false;
         }
 
-        //only drivers with at least 5 years of experience can drive electric buses 
-        if ("Electric".equalsIgnoreCase(this.fuelType) && driverExp < 5) {
+        boolean isElectric = "Electricity".equalsIgnoreCase(this.fuelType) || "Electric".equalsIgnoreCase(this.fuelType);
+
+        boolean isHybrid = "Hybrid".equalsIgnoreCase(this.fuelType);
+
+        // B4: only drivers with at least 5 years of experience can drive electric buses 
+        if (isElectric && driverExp < 5) {
             return false;
         }
 
-        //only drivders with Heavy or PublicTransport license can drive electric or hybrid buses
-        if ("Electric".equalsIgnoreCase(this.fuelType) || "Hybrid".equalsIgnoreCase(this.fuelType)) {
+        // B5: only drivers with Heavy or PublicTransport license can drive electric or hybrid buses
+        if (isElectric || isHybrid) {
             boolean hasValidLicense = "Heavy".equalsIgnoreCase(licenceType) || "PublicTransport".equalsIgnoreCase(licenceType);
             if (!hasValidLicense) {
                 return false;
@@ -46,6 +53,7 @@ public class Bus {
         return true;
     }
 
+    //B1: Bus ID must be exactly 8 digits
     public static boolean isValidBusID(String busID) {
         return busID != null && busID.matches("\\d{8}");
     }
@@ -76,7 +84,7 @@ public class Bus {
 
     public boolean updateCapacity(int newCapacity) {
         if (newCapacity > this.capacity) {
-            return false; // Cannot reduce capacity
+            return false; // Capacity cannot increase
         }
         this.capacity = newCapacity;
         return true;
