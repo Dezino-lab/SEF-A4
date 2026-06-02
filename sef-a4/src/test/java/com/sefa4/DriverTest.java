@@ -17,7 +17,8 @@ public class DriverTest {
             file.delete();
         }
     }
-
+    
+    //integration test 1 driver with all valid info are stored
     @Test
     public void validDriverShouldBeStoredInTxt() {
 
@@ -36,7 +37,38 @@ public class DriverTest {
         assertTrue(repo.add(driver));
         assertEquals(before + 1, repo.count());
     }
+    
+    //integration test 2 update driver info updating address and dob
+    @Test
+    public void updateDriverInfo() {
+        
+        DriverRepository repo = new DriverRepository();
+        Driver driver = new Driver(
+            "23@#45$6AB",
+            "John",
+            5,
+            "Public Transport",
+            "123|Queen St|Melbourne|VIC|Australia",
+            "03-09-1966"
+        );
 
+        repo.add(driver);
+        int before = repo.count();
+    
+        Driver updatedDriver = new Driver(
+            "23@#45$6AB",
+            "John",
+            5,
+            "Public Transport",
+            "999|Queen Street|Melbourne|VIC|Australia",
+            "01-01-1970"
+        );
+
+        assertTrue(repo.update(updatedDriver));
+        assertEquals(before, repo.count());
+    }
+
+    //driver with duplicate ID is only stored once in TXT file
     @Test
     public void duplicateDriverShouldBeOnlyStoredOnce() {
 
@@ -65,67 +97,29 @@ public class DriverTest {
         assertFalse(repo.add(driver2));
         assertEquals(before + 1, repo.count());
     }
-
+    
+    //test case 1,4,7 - store driver with validID, address and DOB 
     @Test
-    public void invalidDriverIDShouldBeRejected() {
+    public void validID() {
 
         DriverRepository repo = new DriverRepository();
         int before = repo.count();
 
         Driver driver = new Driver(
-                "29abc#$AZ",
-                "Driver",
-                10,
+                "23@#45$6AB",
+                "John",
+                5,
                 "Public Transport",
-                "123|Bus Road|Melbourne|VIC|Australia",
-                "11-03-1988"
+                "123|Queen St|Melbourne|VIC|Australia",
+                "03-09-1966"
         );
 
         assertFalse(repo.add(driver));
         assertEquals(before, repo.count());
     }
-
     
 
-    @Test
-    public void validDriverWithDifferentID1() {
-
-        DriverRepository repo = new DriverRepository();
-        int before = repo.count();
-
-        Driver driver = new Driver(
-                "46*78$96WZ",
-                "Paul",
-                6,
-                "Public Transport",
-                "345|King St|Melbourne|VIC|Australia",
-                "07-08-1976"
-        );
-
-        assertTrue(repo.add(driver));
-        assertEquals(before + 1, repo.count());
-    }
-
-    @Test
-    public void validDriverWithDifferentID2() {
-
-        DriverRepository repo = new DriverRepository();
-        int before = repo.count();
-
-        Driver driver = new Driver(
-                "36%6^7*8QV",
-                "Malcom",
-                7,
-                "Public Transport",
-                "678|Spencer St|Melbourne|VIC|Australia",
-                "12-11-1972"
-        );
-
-        assertTrue(repo.add(driver));
-        assertEquals(before + 1, repo.count());
-    }
-
-    
+    //test case 2 - driver with wrong ID length is rejected and not stored in TXT file
     @Test
     public void invalidIDLength() {
 
@@ -144,7 +138,8 @@ public class DriverTest {
         assertFalse(repo.add(driver));
         assertEquals(before, repo.count());
     }
-
+    
+    //test case 3 - driver with ID that has invalid first two characters is rejected and not stored in TXT file
     @Test
     public void invalidFirstTwoChars() {
 
@@ -163,7 +158,8 @@ public class DriverTest {
         assertFalse(repo.add(driver));
         assertEquals(before, repo.count());
     }
-
+    
+    //test case 5 - driver with missing address field is rejected and not stored in TXT file
     @Test
     public void missingAddressField() {
 
@@ -182,7 +178,8 @@ public class DriverTest {
         assertFalse(repo.add(driver));
         assertEquals(before, repo.count());
     }
-
+    
+    //test case 6 - driver with wrong address delimiter is rejected and not stored in TXT file
     @Test
     public void addressWrongDelimiter() {
 
@@ -201,7 +198,8 @@ public class DriverTest {
         assertFalse(repo.add(driver));
         assertEquals(before, repo.count());
     }
-
+    
+    //test case 8 - driver with invalid DOB is rejected and not stored in TXT file
     @Test
     public void invalidBirthDate() {
 
@@ -220,35 +218,46 @@ public class DriverTest {
         assertFalse(repo.add(driver));
         assertEquals(before, repo.count());
     }
-
-    @Test
-public void updateDriverInfo() {
-
-    DriverRepository repo = new DriverRepository();
-
-    Driver driver = new Driver(
-            "23@#45$6AB",
-            "John",
-            5,
-            "Public Transport",
-            "123|Queen St|Melbourne|VIC|Australia",
-            "03-09-1966"
-    );
-
-    repo.add(driver);
-
     
-    Driver updatedDriver = new Driver(
-            "23@#45$6AB",
-            "John",
-            5,
-            "Public Transport",
-            "999|Queen Street|Melbourne|VIC|Australia",
-            "01-01-1970"
-    );
+    //additional test cases to store drivers in TXT file
+   @Test
+    public void validDriverWithDifferentID1() {
 
-    assertTrue(repo.update(updatedDriver));
-}
+        DriverRepository repo = new DriverRepository();
+        int before = repo.count();
+
+        Driver driver = new Driver(
+                "46*78$96WZ",
+                "Paul",
+                6,
+                "Public Transport",
+                "345|King St|Melbourne|VIC|Australia",
+                "07-08-1976"
+        );
+
+        assertTrue(repo.add(driver));
+        assertEquals(before + 1, repo.count());
+    }
+    //additional test cases to store drivers in TXT file
+    @Test
+    public void validDriverWithDifferentID2() {
+
+        DriverRepository repo = new DriverRepository();
+        int before = repo.count();
+
+        Driver driver = new Driver(
+                "36%6^7*8QV",
+                "Malcom",
+                7,
+                "Public Transport",
+                "678|Spencer St|Melbourne|VIC|Australia",
+                "12-11-1972"
+        );
+
+        assertTrue(repo.add(driver));
+        assertEquals(before + 1, repo.count());
+    }
+    
     
     @Test
     public void birthdateWrongDelimiter() {
