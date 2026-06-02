@@ -68,7 +68,27 @@ public class DriverTest {
         assertEquals(before, repo.count());
     }
 
-    //driver with duplicate ID is only stored once in TXT file
+    // Integration test 3: driver with invalid ID is not stored
+    @Test
+    public void invalidDriverIDShouldBeRejected() {
+
+        DriverRepository repo = new DriverRepository();
+        int before = repo.count();
+
+        Driver driver = new Driver(
+                "29ABC#12CD",
+                "Driver",
+                10,
+                "Public Transport",
+                "123|Bus Road|Melbourne|VIC|Australia",
+                "11-03-1988"
+        );
+
+        assertFalse(repo.add(driver));
+        assertEquals(before, repo.count());
+    }
+
+    //integration test 4 driver with duplicate ID is only stored once in TXT file
     @Test
     public void duplicateDriverShouldBeOnlyStoredOnce() {
 
@@ -258,7 +278,7 @@ public class DriverTest {
         assertEquals(before + 1, repo.count());
     }
     
-    
+    // Unit test case 9 - driver with DOB using incorrect delimiters is rejected and not stored in TXT file
     @Test
     public void birthdateWrongDelimiter() {
 
@@ -278,6 +298,7 @@ public class DriverTest {
         assertEquals(before, repo.count());
     }
 
+    // Unit test case 10 - driver details update when experienceYears is less than 10
     @Test
     public void validLicenseUpdateLessThan10() {
 
@@ -311,6 +332,7 @@ public class DriverTest {
         assertEquals(before, repo.count());
     }
 
+    // Unit test case 11 - driver details update when experienceYears is exactly than 10
     @Test
     public void validLicenseUpdateExactly10() {
 
@@ -344,6 +366,7 @@ public class DriverTest {
         assertEquals(before, repo.count());
     }
 
+    // Unit test case 12 - driver details do not update when experienceYears is more than 10
     @Test
     public void invalidLicenseUpdateMoreThan10() {
 
@@ -377,6 +400,7 @@ public class DriverTest {
         assertEquals(before, repo.count());
     }
 
+    // Unit test case 13 - driver details do not update when experienceYears is more than 10 after update
     @Test
     public void invalidLicenseUpdateMoreThan10AfterUpdate() {
 
@@ -410,6 +434,7 @@ public class DriverTest {
         assertEquals(before, repo.count());
     }
 
+    // Unit test case 14 - driver details update when only address is changed
     @Test
     public void validUpdate() {
 
@@ -443,6 +468,7 @@ public class DriverTest {
         assertEquals(before, repo.count());
     }
 
+    // Unit test case 15 - driver details do not update when driverID is changed
     @Test
     public void invalidUpdateDriverID() {
 
@@ -476,6 +502,7 @@ public class DriverTest {
         assertEquals(before, repo.count());
     }
 
+    // Unit test case 16 - driver details do not update when name is changed
     @Test
     public void invalidUpdateName() {
 
